@@ -2,21 +2,27 @@
   <div class="users-show">
     <h1>{{ message }}</h1>
     <h2>{{ current_user.name }}</h2>
+    <img src="" alt="" />
     <form action="/users/me">
       <h1>User Info</h1>
-      <p>Name: <input type="text" v-model="current_user.name" /></p>
+      <div>Name: <input type="text" v-model="current_user.name" /></div>
+
       <br />
-      <p>Email: <input type="text" v-model="current_user.email" /></p>
+      <div>Email: <input type="text" v-model="current_user.email" /></div>
+
       <br />
-      <p>
+      <div>
         Profile Image: <input type="text" v-model="current_user.image_url" />
-      </p>
+      </div>
+      <button v-on:click="updateUser(current_user)">Update</button>
+      <p>{{ updateUserParams }}</p>
+      <br />
     </form>
     <div v-for="post in current_user.posts" v-bind:key="post.id">
-      {{ post.blurb }} <br />
-      {{ post.blog }} <br />
-      {{ post.image_url }} <br />
-      {{ post.video_url }}
+      Blurb: {{ post.blurb }} <br />
+      Blog: {{ post.blog }} <br />
+      Image: {{ post.image_url }} <br />
+      Video: {{ post.video_url }}
     </div>
     <!-- <h3>{{ current_user }}</h3> -->
   </div>
@@ -40,6 +46,18 @@ export default {
       this.current_user = response.data;
     });
   },
-  methods: {},
+  methods: {
+    updateUser: function (user) {
+      var updateUserParams = user;
+      axios
+        .patch("/users/me", updateUserParams)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.errors);
+        });
+    },
+  },
 };
 </script>

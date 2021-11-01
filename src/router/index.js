@@ -5,6 +5,8 @@ import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import UsersShow from "../views/UsersShow.vue";
+import PostsIndex from "../views/PostsIndex.vue";
+import PostShow from "../views/PostShow.vue";
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,16 @@ const routes = [
     path: "/users/me",
     name: "users-show",
     component: UsersShow,
+  },
+  {
+    path: "/posts",
+    name: "post-index",
+    component: PostsIndex,
+  },
+  {
+    path: "/posts/:id",
+    name: "post-show",
+    component: PostShow,
   },
 ];
 
