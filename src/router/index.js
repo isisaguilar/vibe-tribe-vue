@@ -7,6 +7,7 @@ import Logout from "../views/Logout.vue";
 import UsersShow from "../views/UsersShow.vue";
 import PostsIndex from "../views/PostsIndex.vue";
 import PostShow from "../views/PostShow.vue";
+import PostsEdit from "../views/PostsEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,11 @@ const routes = [
     path: "/posts/:id",
     name: "post-show",
     component: PostShow,
+  },
+  {
+    path: "/posts/:id/edit",
+    name: "posts-edit",
+    component: PostsEdit,
   },
 ];
 

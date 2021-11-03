@@ -1,39 +1,30 @@
 <template>
   <div class="post-show">
-    <h2>Post</h2>
-    <img src="" alt="" />
+    <h2>{{ post.blurb }}</h2>
+    <p>{{ post.blog }}</p>
+    <span v-if="post.image_url"><img :src="post.image_url" alt="" /></span>
+
+    <p>{{ post.user }}</p>
+    <div v-if="$parent.getUserId() == post.user_id">
+      <router-link :to="`/posts/${post.id}/edit`">Edit</router-link>
+    </div>
   </div>
 </template>
 
-<style></style>
-
 <script>
 import axios from "axios";
-
 export default {
   data: function () {
     return {
-      current_user: {},
+      post: {},
     };
   },
   created: function () {
-    axios.get("/users/me").then((response) => {
+    axios.get(`/posts/${this.$route.params.id}`).then((response) => {
       console.log(response.data);
-      this.current_user = response.data;
+      this.post = response.data;
     });
   },
-  methods: {
-    updateUser: function (user) {
-      var updateUserParams = user;
-      axios
-        .patch("/users/me", updateUserParams)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error.response.data.errors);
-        });
-    },
-  },
+  methods: {},
 };
 </script>
