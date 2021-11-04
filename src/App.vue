@@ -8,6 +8,7 @@
       <router-link v-if="isLoggedIn()" to="/logout">Logout</router-link> |
       <router-link to="/users/me">User Show</router-link> |
       <router-link to="/posts">Post Index</router-link> |
+      <router-link to="/boards">Boards Index</router-link> |
     </div>
     <router-view />
   </div>

@@ -23,7 +23,6 @@
     <h3>Comments</h3>
     <div v-for="comment in post.comments" v-bind:key="comment.id">
       <div v-if="$parent.getUserId() == comment.user.id">
-        <button v-on:click="updateComment(comment)">Edit</button>
         <form v-on:submit.prevent="updateComment()">
           <h1>Update Comment</h1>
           <ul>
@@ -37,11 +36,12 @@
             <label>Image:</label>
             <input type="text" v-model="updateCommentParams.image_url" />
           </div>
-          <input type="submit" value="Update" />
+          <button v-on:click="updateComment(comment)">Edit</button>
+          <button v-on:click="destroyComment(comment)">Delete Comment</button>
         </form>
       </div>
       User: {{ comment.user.name }} <br />
-      <img :src="comment.user.image_url" alt="" />
+      <img v-bind:src="comment.user.image_url" v-bind:alt="comment.user" />
       Comment: {{ comment.body }} {{ comment.image_url }}
     </div>
   </div>
@@ -52,11 +52,12 @@ import axios from "axios";
 export default {
   data: function () {
     return {
-      post: {},
+      post: [],
       comment: [],
       user: {},
       newCommentParams: {},
       updateCommentParams: {},
+      errors: [],
     };
   },
   created: function () {
@@ -90,6 +91,12 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
+  },
+  destroyComment: function () {
+    this.comment.id = this.$route.params.id;
+    axios.delete(`/comments/${this.post.comments.id}`).then((response) => {
+      console.log(response.data);
+    });
   },
 };
 </script>
