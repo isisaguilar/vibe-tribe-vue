@@ -8,6 +8,42 @@
     <div v-if="$parent.getUserId() == post.user_id">
       <router-link :to="`/posts/${post.id}/edit`">Edit</router-link>
     </div>
+    <form v-on:submit.prevent="createNewComment()">
+      <div>
+        <label>Body</label> <br />
+        <input type="text" v-model="newCommentParams.body" />
+      </div>
+      <div>
+        <label>Image</label> <br />
+        <input type="text" v-model="newCommentParams.image_url" />
+      </div>
+      <button>Post Comment!</button>
+    </form>
+    <p>{{ newCommentParams }}</p>
+    <h3>Comments</h3>
+    <div v-for="comment in post.comments" v-bind:key="comment.id">
+      <div v-if="$parent.getUserId() == comment.user.id">
+        <button v-on:click="updateComment(comment)">Edit</button>
+        <form v-on:submit.prevent="updateComment()">
+          <h1>Update Comment</h1>
+          <ul>
+            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+          </ul>
+          <div>
+            <label>Body:</label>
+            <input type="text" v-model="updateCommentParams.body" />
+          </div>
+          <div>
+            <label>Image:</label>
+            <input type="text" v-model="updateCommentParams.image_url" />
+          </div>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+      User: {{ comment.user.name }} <br />
+      <img :src="comment.user.image_url" alt="" />
+      Comment: {{ comment.body }} {{ comment.image_url }}
+    </div>
   </div>
 </template>
 
@@ -17,6 +53,10 @@ export default {
   data: function () {
     return {
       post: {},
+      comment: [],
+      user: {},
+      newCommentParams: {},
+      updateCommentParams: {},
     };
   },
   created: function () {
@@ -25,6 +65,31 @@ export default {
       this.post = response.data;
     });
   },
-  methods: {},
+  methods: {
+    createNewComment: function () {
+      this.newCommentParams.post_id = this.$route.params.id;
+      axios
+        .post("/comments", this.newCommentParams)
+        .then((response) => {
+          console.log(response.data);
+          this.comments.push(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response.data.errors);
+        });
+    },
+    updateComment: function () {
+      this.updateCommentParams.post_id = this.$route.params.id;
+      axios
+        .patch(`/comments/${this.updateCommentParams.id}`)
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push(`/comments/${response.data.id}`);
+        })
+        .catch((error) => {
+          this.errors = error.response.data.errors;
+        });
+    },
+  },
 };
 </script>

@@ -23,7 +23,6 @@
     </form>
     <p>{{ newPostParams }}</p>
     <div v-for="post in posts" v-bind:key="post.id">
-      <!-- User: {{ post.user.name }} <br /> -->
       <span v-if="post.blurb">Blurb: {{ post.blurb }}</span> <br />
       <span v-if="post.blog">Blog: {{ post.blog }}</span> <br />
       <span v-if="post.image_url">
@@ -57,6 +56,7 @@ export default {
       posts: [],
       user: {},
       newPostParams: {},
+      name: "",
     };
   },
   created: function () {

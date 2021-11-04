@@ -8,6 +8,7 @@ import UsersShow from "../views/UsersShow.vue";
 import PostsIndex from "../views/PostsIndex.vue";
 import PostShow from "../views/PostShow.vue";
 import PostsEdit from "../views/PostsEdit.vue";
+import CommentsEdit from "../views/CommentsEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
     path: "/posts/:id/edit",
     name: "posts-edit",
     component: PostsEdit,
+  },
+  {
+    path: "/comments/:id",
+    name: "comments-edit",
+    component: CommentsEdit,
   },
 ];
 
