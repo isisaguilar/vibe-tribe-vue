@@ -2,8 +2,9 @@
   <div class="post-show">
     <h2>{{ post.blurb }}</h2>
     <p>{{ post.blog }}</p>
-    <span v-if="post.image_url"><img :src="post.image_url" alt="" /></span>
-
+    <span v-if="post.image_url"
+      ><img v-bind:src="post.image_url" v-bind:alt="post.image_url"
+    /></span>
     <p>{{ post.user }}</p>
     <div v-if="$parent.getUserId() == post.user_id">
       <router-link :to="`/posts/${post.id}/edit`">Edit</router-link>
@@ -21,22 +22,26 @@
     </form>
     <p>{{ newCommentParams }}</p>
     <h3>Comments</h3>
+
     <div v-for="comment in post.comments" v-bind:key="comment.id">
       <div v-if="$parent.getUserId() == comment.user.id">
-        <form v-on:submit.prevent="updateComment()">
+        <form v-on:submit.prevent="updateComment(comment)">
           <h1>Update Comment</h1>
           <ul>
             <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
           </ul>
           <div>
             <label>Body:</label>
-            <input type="text" v-model="updateCommentParams.body" />
+            <input type="text" v-model="comment.body" />
           </div>
           <div>
             <label>Image:</label>
-            <input type="text" v-model="updateCommentParams.image_url" />
+            <input type="text" v-model="comment.image_url" />
           </div>
-          <button v-on:click="updateComment(comment)">Edit</button>
+          {{ comment.id }}
+
+          {{ comment.user.id }}
+          <input type="submit" class="btn btn-primary" value="Submit" />
           <button v-on:click="destroyComment(comment)">Delete Comment</button>
         </form>
       </div>
@@ -53,10 +58,7 @@ export default {
   data: function () {
     return {
       post: [],
-      comment: [],
-      user: {},
       newCommentParams: {},
-      updateCommentParams: {},
       errors: [],
     };
   },
@@ -73,30 +75,34 @@ export default {
         .post("/comments", this.newCommentParams)
         .then((response) => {
           console.log(response.data);
-          this.comments.push(response.data);
+          this.post.comments.push(response.data);
         })
         .catch((error) => {
           console.log(error.response.data.errors);
         });
     },
-    updateComment: function () {
-      this.updateCommentParams.post_id = this.$route.params.id;
+
+    updateComment: function (comment) {
+      console.log(comment);
       axios
-        .patch(`/comments/${this.updateCommentParams.id}`)
+        .patch(`/comments/${comment.id}`, comment)
         .then((response) => {
           console.log(response.data);
-          this.$router.push(`/comments/${response.data.id}`);
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
         });
     },
-  },
-  destroyComment: function () {
-    this.comment.id = this.$route.params.id;
-    axios.delete(`/comments/${this.post.comments.id}`).then((response) => {
-      console.log(response.data);
-    });
+    destroyComment: function (comment) {
+      axios.delete("/comments/" + comment.id).then((response) => {
+        console.log(response.data);
+        let index = this.post.comments.indexOf(comment);
+        this.post.comments.splice(index, 1);
+      });
+    },
+    getUserId: function () {
+      return localStorage.user_id;
+    },
   },
 };
 </script>

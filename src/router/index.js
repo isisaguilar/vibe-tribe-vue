@@ -6,9 +6,11 @@ import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
 import UsersShow from "../views/UsersShow.vue";
 import PostsIndex from "../views/PostsIndex.vue";
+import PostsNew from "../views/PostsNew.vue";
 import PostShow from "../views/PostShow.vue";
 import PostsEdit from "../views/PostsEdit.vue";
 import BoardsIndex from "../views/BoardsIndex.vue";
+import BoardShow from "../views/BoardShow.vue";
 
 Vue.use(VueRouter);
 
@@ -53,6 +55,11 @@ const routes = [
     component: PostsIndex,
   },
   {
+    path: "/posts/new",
+    name: "posts-new",
+    component: PostsNew,
+  },
+  {
     path: "/posts/:id",
     name: "post-show",
     component: PostShow,
@@ -66,6 +73,11 @@ const routes = [
     path: "/boards",
     name: "boards-index",
     component: BoardsIndex,
+  },
+  {
+    path: "/boards/:id",
+    name: "board-show",
+    component: BoardShow,
   },
 ];
 

@@ -46,7 +46,7 @@ export default {
   methods: {
     updatePost: function () {
       axios
-        .patch(`/posts/${this.updatePostParams.id}`)
+        .patch(`/posts/${this.updatePostParams.id}`, this.updatePostParams)
         .then((response) => {
           console.log(response.data);
           this.$router.push(`/posts/${response.data.id}`);

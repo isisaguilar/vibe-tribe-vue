@@ -1,41 +1,86 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link v-if="!isLoggedIn()" to="/signup">Signup</router-link> |
-      <router-link v-if="!isLoggedIn()" to="/login">Login</router-link> |
-      <router-link v-if="isLoggedIn()" to="/logout">Logout</router-link> |
-      <router-link to="/users/me">User Show</router-link> |
-      <router-link to="/posts">Post Index</router-link> |
-      <router-link to="/boards">Boards Index</router-link> |
+    <!-- Header -->
+    <div class="header">
+      <!-- Top Bar -->
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar--bold navbar-light bg-default">
+        <div class="container navbar-container">
+          <!-- Brand/Logo -->
+          <a class="navbar-brand" href="/index.html">
+            <img
+              src="/assets/images/logo/logo-1-b.png"
+              class=""
+              alt="Boomerang"
+            />
+          </a>
+
+          <div class="d-inline-block">
+            <!-- Navbar toggler  -->
+            <button
+              class="navbar-toggler hamburger hamburger-js hamburger--spring"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbar_main"
+              aria-controls="navbarsExampleDefault"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
+            </button>
+          </div>
+
+          <div
+            class="
+              collapse
+              navbar-collapse
+              align-items-center
+              justify-content-end
+            "
+            id="navbar_main"
+          >
+            <ul class="navbar-nav ml-lg-auto">
+              <li v-if="isLoggedIn()" class="nav-item">
+                <router-link to="/users/me" class="nav-link">
+                  Profile
+                </router-link>
+              </li>
+              <li v-if="isLoggedIn()" class="nav-item">
+                <router-link to="/boards" class="nav-link">
+                  Boards
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/posts" class="nav-link"> Posts </router-link>
+              </li>
+              <li v-if="isLoggedIn()" class="nav-item">
+                <router-link to="/logout" class="nav-link">
+                  Logout
+                </router-link>
+              </li>
+              <li v-if="!isLoggedIn()" class="nav-item">
+                <router-link to="/login" class="nav-link"> Login </router-link>
+              </li>
+            </ul>
+          </div>
+
+          <div v-if="!isLoggedIn()" class="pl-4 d-none d-lg-inline-block">
+            <router-link
+              to="/signup"
+              class="btn btn-styled btn-sm btn-base-1 btn-circle"
+            >
+              Signup
+            </router-link>
+          </div>
+        </div>
+      </nav>
     </div>
     <router-view />
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
 
 <script>
 export default {
