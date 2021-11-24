@@ -63,15 +63,14 @@
                 <router-link to="/login" class="nav-link"> Login </router-link>
               </li>
             </ul>
-          </div>
-
-          <div v-if="!isLoggedIn()" class="pl-4 d-none d-lg-inline-block">
-            <router-link
-              to="/signup"
-              class="btn btn-styled btn-sm btn-base-1 btn-circle"
-            >
-              Signup
-            </router-link>
+            <div v-if="!isLoggedIn()" class="pl-4 d-none d-lg-inline-block">
+              <router-link
+                to="/signup"
+                class="btn btn-styled btn-sm btn-base-1 btn-circle"
+              >
+                Signup
+              </router-link>
+            </div>
           </div>
         </div>
       </nav>
