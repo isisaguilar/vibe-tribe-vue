@@ -22,14 +22,28 @@
                       alt=""
                       class="img-center"
                     />
-                    <a href="#" class="btn-aux">
-                      <i class="ion ion-edit"></i>
-                    </a>
                   </div>
 
                   <!-- Profile details -->
                   <div class="profile-details mb-4">
-                    <h2 class="heading heading-6 strong-600 profile-name">
+                    <div v-if="editable" class="form-group">
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        v-model="currentUser.image_url"
+                      />
+                    </div>
+                    <div v-if="editable" class="form-group">
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        v-model="currentUser.name"
+                      />
+                    </div>
+                    <h2
+                      v-else
+                      class="heading heading-6 strong-600 profile-name"
+                    >
                       {{ currentUser.name }}
                     </h2>
                   </div>
@@ -38,30 +52,37 @@
 
                   <ul class="categories categories--style-3 mt-3">
                     <li>
-                      <a href="/html/e-commerce/account-settings.html">
-                        <i class="ion-gear-b"></i>
-                        <span class="category-name"> Settings </span>
+                      <div v-if="editable" class="form-group">
+                        <input
+                          type="text"
+                          class="form-control form-control-lg"
+                          v-model="currentUser.email"
+                        />
+                      </div>
+                      <a v-else href="#">
+                        <i class="ion-email"></i>
+                        <span class="category-name">
+                          {{ currentUser.email }}
+                        </span>
                       </a>
                     </li>
                     <li>
                       <a
-                        href="/html/e-commerce/account-orders.html"
+                        v-if="editable"
+                        href="#"
                         class="active"
+                        v-on:click="updateUser()"
+                        ><i class="ion-refresh"></i>
+                        <span class="category-name"> Update </span>
+                      </a>
+                      <a
+                        v-else
+                        href="#"
+                        class="active"
+                        v-on:click="editable = true"
                       >
-                        <i class="ion-calendar"></i>
-                        <span class="category-name"> Orders </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/html/e-commerce/account-wishlist.html">
-                        <i class="ion-heart"></i>
-                        <span class="category-name"> Wishlist </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="/html/e-commerce/account-notifications.html">
-                        <i class="ion-email-unread"></i>
-                        <span class="category-name"> Notifications </span>
+                        <i class="ion-edit"></i>
+                        <span class="category-name"> Edit </span>
                       </a>
                     </li>
                   </ul>
@@ -71,7 +92,6 @@
 
             <div class="col-lg-9">
               <div class="main-content">
-                <!-- Page title -->
                 <div class="page-title">
                   <div class="row align-items-center">
                     <div class="col-lg-6 col-12">
@@ -83,14 +103,27 @@
                           mb-0
                         "
                       >
-                        <h4 href="#" class="link text-underline--none">
-                          My Posts
-                        </h4>
+                        <a href="#" class="link text-underline--none">
+                          <i class="ion-ios-arrow-back"></i> My Posts
+                        </a>
                       </h2>
                     </div>
                   </div>
                 </div>
-
+                <div class="widget">
+                  <div class="card-actions border-bottom">
+                    <div class="row align-items-center">
+                      <div class="col-3">
+                        <router-link
+                          to="/posts/new"
+                          class="btn btn-blue btn-icon-left"
+                        >
+                          <i class="icon ion-plus"></i> New Post
+                        </router-link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <!-- Wishlist items -->
                 <div
                   class="
@@ -100,78 +133,62 @@
                 >
                   <div class="col-lg-12">
                     <div class="row-wrapper">
-                      <div
-                        class="row cols-md-space cols-sm-space cols-xs-space"
-                      >
+                      <div class="row cols-md-space">
                         <div
                           v-for="post in currentUser.posts"
                           v-bind:key="post.id"
-                          class="col-lg-6 mb-5"
+                          class="col-lg-4 pb-4"
                         >
-                          <div class="col-lg-5">
-                            <div class="card card-product">
-                              <div class="card-body">
-                                <div class="card-image swiper-js-container">
-                                  <div class="">
+                          <div class="card card-product">
+                            <div class="card-body">
+                              <div class="card-image swiper-js-container">
+                                <div class="">
+                                  <div
+                                    class="
+                                      swiper-container
+                                      swiper-container-horizontal
+                                      swiper-container-undefined
+                                    "
+                                    data-swiper-items="1"
+                                    data-swiper-space-between="0"
+                                  >
                                     <div
-                                      class="swiper-container"
-                                      data-swiper-items="1"
-                                      data-swiper-space-between="0"
+                                      class="swiper-wrapper"
+                                      style="
+                                        transform: translate3d(0px, 0px, 0px);
+                                      "
                                     >
-                                      <div class="swiper-wrapper">
-                                        <div
+                                      <div
+                                        class="swiper-slide swiper-slide-active"
+                                        style="width: 160px"
+                                      >
+                                        <img
                                           v-if="post.image_url"
-                                          class="swiper-slide"
-                                        >
-                                          <img
-                                            :src="post.image_url"
-                                            alt=""
-                                            class="
-                                              img-fluid img-center img-primary
-                                            "
-                                          />
-                                        </div>
-                                        <div
+                                          :src="post.image_url"
+                                          class="
+                                            img-fluid img-center img-primary
+                                          "
+                                        />
+                                        <img
                                           v-if="post.video_url"
-                                          class="swiper-slide"
-                                        >
-                                          <img
-                                            :src="post.video_url"
-                                            alt=""
-                                            class="
-                                              img-fluid img-center img-primary
-                                            "
-                                          />
-                                        </div>
+                                          :src="post.video_url"
+                                          class="
+                                            img-fluid img-center img-primary
+                                          "
+                                        />
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                                <div v-if="post.blurb">
-                                  <h2
-                                    class="
-                                      heading heading-6
-                                      strong-600
-                                      mt-2
-                                      mb-3
-                                    "
-                                  >
-                                    {{ post.blurb }}
-                                  </h2>
-                                </div>
-                                <div v-if="post.blog">
-                                  <h2
-                                    class="
-                                      heading heading-6
-                                      strong-600
-                                      mt-2
-                                      mb-3
-                                    "
-                                  >
-                                    {{ post.blog }}
-                                  </h2>
-                                </div>
                               </div>
+
+                              <h2
+                                class="heading heading-6 strong-600 mt-2 mb-3"
+                              >
+                                <router-link :to="`/posts/${post.id}`">{{
+                                  post.blurb
+                                }}</router-link>
+                              </h2>
                             </div>
                           </div>
                         </div>
@@ -185,49 +202,6 @@
         </div>
       </div>
     </section>
-
-    <h1>{{ message }}</h1>
-    <h2>
-      {{ currentUser.name }} <br />
-      <img :src="currentUser.image_url" alt="" />
-    </h2>
-    <form v-on:submit.prevent="updateUser()">
-      <h1>User Info</h1>
-      <div>Name: <input type="text" v-model="currentUser.name" /></div>
-
-      <br />
-      <div>Email: <input type="text" v-model="currentUser.email" /></div>
-
-      <br />
-      <div>
-        Profile Image: <input type="text" v-model="currentUser.image_url" />
-      </div>
-      <button type="submit">Update</button>
-      <p>{{ updateUserParams }}</p>
-      <br />
-    </form>
-    <div v-for="post in currentUser.posts" v-bind:key="post.id">
-      <span v-if="post.blurb"
-        >Blurb: <br />
-        {{ post.blurb }}</span
-      >
-      <br />
-      <span v-if="post.blog"
-        >Blog: <br />
-        {{ post.blog }}</span
-      >
-      <br />
-      <span v-if="post.image_url">
-        Image: <br />
-        <img :src="post.image_url" alt=""
-      /></span>
-      <br />
-      <span v-if="post.video_url">
-        Video: <br />
-        <img :src="post.video_url" alt=""
-      /></span>
-    </div>
-    <!-- <h3>{{ currentUser }}</h3> -->
   </div>
 </template>
 
@@ -242,6 +216,7 @@ export default {
       message: "Welcome to User show page!",
       currentUser: {},
       updateUserParams: {},
+      editable: false,
     };
   },
   created: function () {
@@ -257,6 +232,7 @@ export default {
         .patch("/users/me", updateUserParams)
         .then((response) => {
           console.log(response.data);
+          this.editable = false;
         })
         .catch((error) => {
           console.log(error.response.data.errors);

@@ -3,7 +3,7 @@
     <section
       class="slice-lg has-bg-cover bg-size-cover"
       style="
-        background-image: url(/assets/images/backgrounds/slider/img-52.jpg);
+        background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');
         background-position: bottom center;
       "
     >
@@ -53,7 +53,10 @@
                       </div>
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-styled btn-base-1 mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-styled btn-base-1 btn-circle px-4 mt-4"
+                  >
                     Login
                   </button>
                 </form>

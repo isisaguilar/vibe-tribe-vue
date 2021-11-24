@@ -3,15 +3,15 @@
     <section class="slice sct-color-2 border-bottom">
       <div class="container">
         <div class="section-title section-title--style-1 text-center mb-3">
-          <h3 class="section-title-inner heading-1 strong-300 text-normal">
-            Posts
+          <h1 class="section-title-inner heading-1 strong-300 text-normal">
+            Posts <br />
             <router-link
               to="/posts/new"
-              class="btn btn-sm btn-styled btn-base-1"
+              class="btn btn-styled btn-base-1 btn-circle px-4"
             >
               New Post
             </router-link>
-          </h3>
+          </h1>
 
           <span class="section-title-delimiter clearfix d-none"></span>
         </div>
@@ -26,7 +26,9 @@
             text-center
           "
         >
-          Isis comes up with a cool thing to put here
+          <blockquote class="blockquote blockquote--style-1 mt-4 mb-4">
+            "Be Such A Beautiful Soul That People Crave Your Vibes"
+          </blockquote>
         </div>
       </div>
     </section>
@@ -37,20 +39,18 @@
           <div v-for="post in posts" v-bind:key="post.id" class="col-lg-6 mb-5">
             <div class="px-4">
               <div class="block block-image-holder">
-                <div class="block-image has-solid-shadow-right">
-                  <router-link :to="`/posts/${post.id}`">
-                    <img
-                      v-if="post.image_url"
-                      :src="post.image_url"
-                      class="img-fluid img-center"
-                    />
-                    <img
-                      v-if="!post.image_url && post.video_url"
-                      :src="post.video_url"
-                      class="img-fluid img-center"
-                    />
-                  </router-link>
-                </div>
+                <router-link :to="`/posts/${post.id}`">
+                  <img
+                    v-if="post.image_url"
+                    :src="post.image_url"
+                    class="img-fluid img-center"
+                  />
+                  <img
+                    v-if="!post.image_url && post.video_url"
+                    :src="post.video_url"
+                    class="img-fluid img-center"
+                  />
+                </router-link>
 
                 <div class="pt-5">
                   <h3 class="heading heading-4 strong-600">
@@ -88,7 +88,7 @@
 
                   <div class="col-2">
                     <button
-                      class="btn btn-sm btn-styled btn-base-1"
+                      class="btn btn-sm btn-styled btn-base-1 btn-circle"
                       v-on:click="createPostBoard(post.id)"
                     >
                       Save

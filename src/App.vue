@@ -5,16 +5,14 @@
       <!-- Top Bar -->
 
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar--bold navbar-light bg-default">
+      <nav class="navbar navbar-expand-lg navbar--bold navbar-light bg-base-1">
         <div class="container navbar-container">
           <!-- Brand/Logo -->
-          <a class="navbar-brand" href="/index.html">
-            <img
-              src="/assets/images/logo/logo-1-b.png"
-              class=""
-              alt="Boomerang"
-            />
-          </a>
+          <router-link to="/posts" class="navbar-brand">
+            <blockquote class="blockquote blockquote--style-1 mt-4 mb-4">
+              Vibe Tribe
+            </blockquote>
+          </router-link>
 
           <div class="d-inline-block">
             <!-- Navbar toggler  -->
@@ -83,6 +81,25 @@
 </template>
 
 <script>
+import Darkmode from "darkmode-js";
+
+const options = {
+  bottom: "64px", // default: '32px'
+  right: "unset", // default: '32px'
+  left: "32px", // default: 'unset'
+  time: "0.5s", // default: '0.3s'
+  mixColor: "#fff", // default: '#fff'
+  backgroundColor: "#fff", // default: '#fff'
+  buttonColorDark: "#100f2c", // default: '#100f2c'
+  buttonColorLight: "#fff", // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: "🌓", // default: ''
+  autoMatchOsTheme: true, // default: true
+};
+
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+
 export default {
   data: function () {
     return {};

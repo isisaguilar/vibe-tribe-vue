@@ -29,6 +29,9 @@
       href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Plugins -->
     <link rel="stylesheet" href="/assets/vendor/swiper/css/swiper.min.css" />
@@ -108,7 +111,9 @@
     />
 
     <!-- Favicon -->
-    <link href="/assets/images/favicon.png" rel="icon" type="image/png" />
+    <link href="https://cdn-icons.flaticon.com/png/128/3049/premium/3049596.png?token=exp=1636613012~hmac=bbb4b22315c887b043a31a1bf5b01404" rel="icon" type="image/png" />
+    
+
   </head>
   <body>
     <!-- MAIN WRAPPER -->
@@ -129,7 +134,16 @@
       </div>
     </div>
     <!-- END: body-wrap -->
-
+    <style>
+      .darkmode-layer, .darkmode-toggle {
+        z-index: 500;
+      }
+      .darkmode--activated .logo {
+      mix-blend-mode: exclusion;
+      }
+     
+    </style>
+    
     <!-- SCRIPTS -->
     <a href="#" class="back-to-top btn-back-to-top"></a>
 
@@ -147,6 +161,8 @@
     <!-- Plugins: Sorted A-Z -->
     <script src="/assets/vendor/adaptive-backgrounds/adaptive-backgrounds.js"></script>
     <script src="/assets/vendor/countdown/js/jquery.countdown.min.js"></script>
+    
+   
     <script src="/assets/vendor/dropzone/dropzone.min.js"></script>
     <script src="/assets/vendor/easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script src="/assets/vendor/fancybox/js/jquery.fancybox.min.js"></script>

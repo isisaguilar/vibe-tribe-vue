@@ -3,7 +3,7 @@
     <section
       class="slice-lg has-bg-cover bg-size-cover"
       style="
-        background-image: url(/assets/images/backgrounds/slider/img-52.jpg);
+        background-image: url(https://images.unsplash.com/photo-1538370965046-79c0d6907d47?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHVuaXZlcnNlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60);
         background-position: bottom center;
       "
     >
@@ -49,11 +49,11 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="control-label">Blog</label>
-                        <input
+                        <textarea
+                          class="form-control form-control-lg textarea-autogrow"
                           type="text"
-                          class="form-control form-control-lg"
                           v-model="newPostParams.Blog"
-                        />
+                        ></textarea>
                       </div>
                     </div>
                   </div>
@@ -84,7 +84,10 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-styled btn-base-1 mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-styled btn-base-1 btn-circle px-4 mt-5"
+                  >
                     Create!
                   </button>
                 </form>

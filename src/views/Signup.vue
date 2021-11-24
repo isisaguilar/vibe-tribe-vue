@@ -3,7 +3,7 @@
     <section
       class="slice-lg has-bg-cover bg-size-cover"
       style="
-        background-image: url(/assets/images/backgrounds/slider/img-52.jpg);
+        background-image: url('https://images.unsplash.com/photo-1501862700950-18382cd41497?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8dW5pdmVyc2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60');
         background-position: bottom center;
       "
     >
@@ -19,7 +19,7 @@
               <div class="form-body">
                 <div class="text-center px-2">
                   <h4 class="heading heading-4 strong-400 mb-4">
-                    Sign in to your account
+                    Join the Vibe Tribe
                   </h4>
                 </div>
 
@@ -89,8 +89,11 @@
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-styled btn-base-1 mt-4">
-                    Register
+                  <button
+                    type="submit"
+                    class="btn btn-styled btn-base-1 btn-circle px-4 mt-5"
+                  >
+                    Signup
                   </button>
                 </form>
               </div>
