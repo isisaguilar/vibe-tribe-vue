@@ -62,6 +62,11 @@
               <li v-if="!isLoggedIn()" class="nav-item">
                 <router-link to="/login" class="nav-link"> Login </router-link>
               </li>
+              <li v-if="!isLoggedIn()" class="nav-item">
+                <router-link to="/signup" class="nav-link">
+                  Signup
+                </router-link>
+              </li>
             </ul>
           </div>
           <div v-if="!isLoggedIn()" class="pl-4 d-none d-lg-inline-block">
